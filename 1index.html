@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Risco de Gravidez</title>
+  <!-- Fonte Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="gravi.ico" type="image/x-icon">
+
+  <style>
+    /* Reset & Tipografia */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family:'Poppins',sans-serif;
+      background-color:#FFDAD9;
+      min-height:100vh;
+      display:flex; flex-direction:column;
+      align-items:center;
+      justify-content:space-between;
+    }
+    h1, h2 { color:#8C3D49; }
+    p { color:#8C3D49; font-weight:300; }
+
+    /* Header */
+    header {
+      width:100%; padding:1.5rem;
+      display:flex; justify-content:center; align-items:center; gap:.5rem;
+    }
+    .icon-butterfly { width:36px; height:36px; }
+    .logo { font-size:2rem; font-weight:600; }
+
+    /* Container principal */
+    main {
+      flex:1;
+      width:100%; max-width:600px;
+      padding:1rem;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .tela {
+      display:none;
+      width:100%; max-width:500px;
+      background:#fff;
+      padding:2rem;
+      border-radius:20px;
+      box-shadow:0 6px 20px rgba(0,0,0,0.1);
+      transition:opacity .3s ease;
+    }
+    .tela.ativa { display:block; opacity:1; }
+    .tela h2 {
+      text-align:center;
+      margin-bottom:1.5rem;
+      font-weight:600;
+      font-size:1.4rem;
+    }
+    .desc {
+      margin:1rem 0 2rem;
+      font-size:1rem;
+      line-height:1.5;
+      text-align:center;
+    }
+
+    /* Grid de Inputs */
+    .grid-inputs {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:1rem 1.5rem;
+      margin-bottom:2rem;
+    }
+    @media(max-width:500px) {
+      .grid-inputs { grid-template-columns:1fr; }
+    }
+    label {
+      display:flex; align-items:center; gap:.5rem;
+      font-weight:300; font-size:.95rem;
+    }
+    .label-text { display:block; }
+    input {
+      margin-top:.5rem;
+      padding:.75rem;
+      border:1px solid #ccc;
+      border-radius:10px;
+      font-size:1rem;
+      width:100%;
+    }
+    .error {
+      color:#D8000C;
+      font-size:.85rem;
+      margin-top:.25rem;
+    }
+
+    /* Botões */
+    .btn-principal, .btn-secundario {
+      width:100%; padding:1rem; font-size:1.1rem;
+      border-radius:12px; cursor:pointer;
+      transition:background .2s, transform .2s;
+      margin-top:.5rem;
+    }
+    .btn-principal {
+      background:#B8CDCD; border:none; color:#8C3D49;
+    }
+    .btn-principal:hover { background:#A0B9B9; transform:translateY(-2px); }
+    .btn-secundario {
+      background:transparent; border:2px solid #8C3D49; color:#8C3D49;
+    }
+    .btn-secundario:hover { background:#8C3D49; color:#fff; transform:translateY(-2px); }
+
+    /* Footer */
+    footer {
+      width:100%; text-align:center;
+      padding:1rem; background:#8C3D49; color:#fff;
+      font-size:.9rem;
+      display:flex; flex-direction:column; align-items:center;
+      gap:.5rem;
+    }
+
+    footer p {
+        color: #fff;           /* força o coração em branco */
+        font-size: 1.1em;      /* opcional: aumenta um pouco */
+    }
+    .fotos-grupo {
+      display:flex; gap:1rem;
+      flex-wrap:wrap; justify-content:center;
+    }
+    .fotos-grupo img {
+      width:60px; height:60px; object-fit:cover;
+      border-radius:50%; border:2px solid #fff;
+    }
+
+    /* Destaque de texto */
+.desc mark {
+  background-color: #FFF3C4;
+  padding: 0 .25rem;
+  border-radius: 4px;
+}
+/* Footer: legendas e links */
+.fotos-grupo figure {
+  margin: 0;
+  text-align: center;
+}
+.fotos-grupo figcaption {
+  margin-top: .5rem;
+  font-size: .85rem;
+}
+.fotos-grupo a {
+  color: #FFDAD9;      /* cor clara para contraste */
+  text-decoration: none;
+}
+.fotos-grupo a:hover {
+  text-decoration: underline;
+}
+
+  </style>
+</head>
+
+<body>
+  <header>
+    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%238C3D49' d='M12 2l2.09 6.26L20 9l-5 3.62L16.18 18 12 14.5 7.82 18 9 12.62 4 9l5.91-.74L12 2z'/%3E%3C/svg%3E" 
+         alt="Borboleta" class="icon-butterfly">
+  <h1 class="logo">Bem-vinda</h1>
+  </header>
+
+  <main>
+    <div class="tela ativa">
+      <h2>Aplicação de Risco de Gravidez</h2>
+      <p class="desc">
+        Este site foi desenvolvido especialmente para <mark>mulheres grávidas</mark>,  
+        para analisar <mark>parâmetros clínicos</mark> (como pressão arterial, glicemia e frequência cardíaca)  
+        e retornar um <mark>risco de gravidez: baixo, médio ou alto</mark>.  
+        Insira seus dados com atenção e receba orientações de forma empática e segura.
+      </p>
+      <button id="btn-iniciar" class="btn-principal">Iniciar</button>
+    </div>
+
+    <section id="tela-perguntas" class="tela">
+      <h2>Preencha seus dados clínicos</h2>
+      <form id="form-dados">
+        <div class="grid-inputs">
+         <label><span>🎂</span><span class="label-text">Idade</span><input type="number" name="idade" min="0" max="120" required></label>
+        <label><span>❤️</span><span class="label-text">Frequência Cardíaca</span><input type="number" name="fc" min="0" max="220" required></label>
+        <label><span>💉</span><span class="label-text">Glicemia</span><input type="number" step="0.1" name="glicemia" min="0" required></label>
+        <label><span>🌡️</span><span class="label-text">Temperatura (°F)</span><input type="number" step="0.1" name="temperatura" min="0" required></label>
+        <label><span>🩺</span><span class="label-text">Pressão Sistólica</span><input type="number" name="sistolica" min="0" required></label>
+        <label><span>🩹</span><span class="label-text">Pressão Diastólica</span><input type="number" name="diastolica" min="0" required></label>
+        </div>
+        <div id="erro-validacao" class="error"></div>
+        <button type="submit" class="btn-principal">Enviar</button>
+      </form>
+    </section>
+
+    <section id="tela-resultado" class="tela">
+      <div id="resultado-conteudo"></div>
+      <button id="btn-reiniciar" class="btn-secundario">Reiniciar</button>
+    </section>
+  </main>
+
+  <footer> 
+    <p>Desenvolvido com 🩷 por:</p>
+    <div class="fotos-grupo">
+      <figure>
+        <img src="sofia.jpg" alt="Sofia">
+        <figcaption>
+          <a href="mailto:sofia.cirino@germinare.org.br">Sofia Cirino</a>
+        </figcaption>
+      </figure>
+      <figure>
+        <img src="hellen.jpg" alt="Hellen">
+        <figcaption>
+          <a href="mailto:hellen.melchiades@germinare.org.br">Hellen Melchiades</a>
+        </figcaption>
+      </figure>
+      <figure>
+        <img src="pietra.jpg" alt="Pietra">
+        <figcaption>
+          <a href="mailto:pietra.oliveira@germinare.org.br">Pietra Oliveira</a>
+        </figcaption>
+      </figure>
+    </div>
+  </footer> 
+
+  <script>
+    const telaInicial = document.querySelector('main .tela.ativa');
+    const telaPerguntas = document.getElementById('tela-perguntas');
+    const telaResultado = document.getElementById('tela-resultado');
+    const btnIniciar = document.getElementById('btn-iniciar');
+    const formDados = document.getElementById('form-dados');
+    const resultadoConteudo = document.getElementById('resultado-conteudo');
+    const btnReiniciar = document.getElementById('btn-reiniciar');
+    const erroValidacao = document.getElementById('erro-validacao');
+
+    btnIniciar.addEventListener('click', () => {
+      telaInicial.classList.remove('ativa');
+      telaPerguntas.classList.add('ativa');
+    });
+
+    formDados.addEventListener('submit', async e => {
+      e.preventDefault();
+      erroValidacao.textContent = '';
+
+      const dados = Object.fromEntries(new FormData(formDados));
+      const vIdade = +dados.idade;
+      const vFc = +dados.fc;
+      if (isNaN(vIdade) || vIdade<0 || vIdade>120) {
+        erroValidacao.textContent = 'Idade deve ser número entre 0 e 120.';
+        return;
+      }
+      if (isNaN(vFc) || vFc<0 || vFc>220) {
+        erroValidacao.textContent = 'Frequência Cardíaca deve ser número entre 0 e 220.';
+        return;
+      }
+      for (let key of ['glicemia','temperatura','sistolica','diastolica']) {
+        const v = +dados[key];
+        if (isNaN(v) || v<0) {
+          erroValidacao.textContent = 'Todos os valores devem ser números não-negativos.';
+          return;
+        }
+      }
+
+      try {
+        const resp = await fetch('http://localhost:8000/api/risco', {
+          method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(dados)
+        });
+        const { risco, mensagem } = await resp.json();
+
+        telaPerguntas.classList.remove('ativa');
+        telaResultado.classList.add('ativa');
+
+        const emoji = risco==='baixo'? '😊' : risco==='medio'? '😐' : '⚠️';
+        resultadoConteudo.innerHTML = `<h2>Risco: ${risco.toUpperCase()} ${emoji}</h2><p>${mensagem}</p>`;
+      } catch {
+        erroValidacao.textContent = 'Erro ao comunicar com a API. Tente novamente.';
+      }
+    });
+
+    btnReiniciar.addEventListener('click', () => {
+      telaResultado.classList.remove('ativa');
+      telaInicial.classList.add('ativa');
+      formDados.reset();
+      erroValidacao.textContent = '';
+    });
+  </script>
+</body>
+</html>
+
+
